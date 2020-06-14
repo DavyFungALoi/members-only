@@ -1,21 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title></title>
-</head>
-<body>
-  <h1>Sign Up</h1>
-  <form action="" method="POST">
-    <label for="first_name">First Name</label>
-    <input name="first_name" placeholder="" type="text" />
-    <label for="last_name">Last Name</label>
-    <input name="last_name" placeholder="" type="text" />
-    <label for="username">Email</label>
-    <input name="username" placeholder="" type="email" />
-    <label for="password">Password</label>
-    <input name="password" type="password" />
-    <button type="submit" value="Submit">Submit</button>
-  </form>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+  </head>
+  <body>
+    <h1>Sign Up</h1>
+    <form action="" method="POST">
+      <label for="first_name">First Name</label>
+      <input name="first_name" placeholder="" type="text" />
+      <label for="last_name">Last Name</label>
+      <input name="last_name" placeholder="" type="text" />
+      <label for="username">Email</label>
+      <input name="username" placeholder="" type="email" />
+      <label for="password">Password</label>
+      <input name="password" type="password" />
+      <label for="passwordConfirmation">Password Confirmation</label>
+      <input name="passwordConfirmation" type="password" />
+      <button type="submit" value="Submit">Submit</button>
+    </form>
+    <% if(errors){ %>
+    <h1>Errors</h1>
+    <% errors.forEach(function(error){ %>
+    <div> <%= error.msg %></div> 
+   
+     <%})%> <% } else{ %>
+    <h1>no errors</h1>
+    <% } %>
+  </body>
 </html>
