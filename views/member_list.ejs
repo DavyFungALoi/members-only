@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Users List</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Members Only</h1>
+    <h2>Welcome to Member list Overview</h2>
+    <% users_list.forEach(function(user){  %>
+        
+          <h3><%= user.first_name %></h3>
+          <li>First Name:  <%= user.first_name %></li>
+          <li>Last Name:  <%= user.last_name%></li>
+
+          <a href="<%=user.url%>">Click here to go view the personal information of the member</a>  
+
+
+        
+<%})%>
+  </body>
+</html>
