@@ -4,6 +4,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const expressValidator = ("express-validator");
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -11,7 +12,13 @@ var membersOnlyRouter = require('./routes/members');
 var mongoose = require('mongoose');
 
 
+
+
+
 var app = express();
+
+
+//Validator
 
 //Set up default mongoose connection
 var mongoDB = process.env.DB_CONNECT
@@ -22,6 +29,7 @@ var db = mongoose.connection;
 
 //Bind connection to error event (to get notification of connection errors)
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
 
 
 // view engine setup
