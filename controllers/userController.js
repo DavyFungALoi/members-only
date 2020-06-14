@@ -22,14 +22,10 @@ exports.signup_form = function (req, res) {
 };
 
 exports.signup_form_create= [
-    validator.check('password', "must be atleast 5 characters").isLength({ min: 5 }),
-    validator.body('password').escape(),
-    validator.body('first_name', 'First Name is required').trim().isLength({min:1}),
-    validator.body('first_name').escape(),
-    validator.body('last_name', 'Last Name is required').trim().isLength({min:1}),
-    validator.body('first_name').escape(),
-    validator.check('username', "must be an e-mail").isEmail(),
-    validator.body('username').escape(),
+    validator.check('password', "must be atleast 5 characters").isLength({ min: 5 }).escape(),
+    validator.body('first_name', 'First Name is required').trim().isLength({min:1}).escape(),
+    validator.body('last_name', 'Last Name is required').trim().isLength({min:1}).escape(),
+    validator.check('username', "must be an e-mail").isEmail().escape(),
     
     //After validation & sanitzation
     (req,res, next) => {
