@@ -83,7 +83,7 @@ exports.signup_form_create = [
           if (err) {
             return next(err);
           }
-          res.redirect("/members/signup");
+          res.redirect("/members/memberlist");
           return;
         });
       }
@@ -117,10 +117,34 @@ exports.membership_detail_page = function (req, res, next) {
 
 //Grant a member membership status if they fill in the correct passport
 exports.membership_detail_page_membership_status_request = function (req, res, next) {
+  if(req.body.secret_password.toLowerCase() === "alohomora") {
+        User.findByIdAndUpdate(req.params.id, {membership_status:true}, function (err) {
+          if (err) {
+            return next(err)
+          }
+        })
+        res.redirect('/members/memberlist')
+      }
+      else {
+        res.send('invalid password')
+      }
+  };
 
-    if(req.body.secret_password === "alohomora") {
+exports.membership_form = function (req, res) {
+  res.render("membership", { title: "Members-Only" });
+};
+
+/*
+  if(req.body.secret_password === "alohomora") {
+        User.findByIdAndUpdate(req.params.id, {membership_status:true}, function (err) {
+          if (err) {
+            return next(err)
+          }
+        })
+
         (console.log('SESAME OPEN'))
         res.redirect('/members/memberlist')
+
 
     }
     
@@ -128,7 +152,5 @@ exports.membership_detail_page_membership_status_request = function (req, res, n
 
   };
 
-exports.membership_form = function (req, res) {
-  res.render("membership", { title: "Members-Only" });
-};
 
+*/
