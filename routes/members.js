@@ -10,6 +10,7 @@ router.get('/signup', user_Controller.signup_form)
 
 router.post('/signup', user_Controller.signup_form_create);
 
+router.get('/signin', user_Controller.sign_in_display)
 
 router.get('/membership', user_Controller.membership_form)
 

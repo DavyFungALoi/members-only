@@ -6,6 +6,7 @@ const User = require("../models/user");
 const validator = require("express-validator");
 const { body } = require("express-validator");
 const async = require("async");
+const LocalStrategy = require("passport-local").Strategy;
 
 exports.index = function (req, res) {
   res.render("index", { title: "Members-Only" });
@@ -66,8 +67,8 @@ exports.signup_form_create = [
       const user = new User({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
-        username: req.body.email,
-        passport: hash,
+        username: req.body.username,
+        password: hash,
       });
 
       if (!errors.isEmpty()) {
@@ -96,7 +97,7 @@ exports.membership_detail_page = function (req, res, next) {
   async.parallel(
     {
       user_found: function (callback) {
-        User.findById(req.params.id).exec(callback)
+        User.findById(req.params.id).exec(callback);
       },
     },
     function (err, results) {
@@ -116,41 +117,33 @@ exports.membership_detail_page = function (req, res, next) {
 };
 
 //Grant a member membership status if they fill in the correct passport
-exports.membership_detail_page_membership_status_request = function (req, res, next) {
-  if(req.body.secret_password.toLowerCase() === "alohomora") {
-        User.findByIdAndUpdate(req.params.id, {membership_status:true}, function (err) {
-          if (err) {
-            return next(err)
-          }
-        })
-        res.redirect('/members/memberlist')
-      }
-      else {
-        res.send('invalid password')
-      }
-  };
 
 exports.membership_form = function (req, res) {
   res.render("membership", { title: "Members-Only" });
 };
 
-/*
-  if(req.body.secret_password === "alohomora") {
-        User.findByIdAndUpdate(req.params.id, {membership_status:true}, function (err) {
-          if (err) {
-            return next(err)
-          }
-        })
+exports.membership_detail_page_membership_status_request = function (
+  req,
+  res,
+  next
+) {
+  if (req.body.secret_password.toLowerCase() === "alohomora") {
+    User.findByIdAndUpdate(
+      req.params.id,
+      { membership_status: true },
+      function (err) {
+        if (err) {
+          return next(err);
+        }
+      }
+    );
+    res.redirect("/members/memberlist");
+  } else {
+    res.send("invalid password");
+  }
+};
 
-        (console.log('SESAME OPEN'))
-        res.redirect('/members/memberlist')
+exports.sign_in_display = function (req, res) {
+  res.render("sign-in", { title: "Members-Only", user: req.user  });
+};
 
-
-    }
-    
-    
-
-  };
-
-
-*/

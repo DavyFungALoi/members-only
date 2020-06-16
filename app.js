@@ -10,12 +10,25 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var membersOnlyRouter = require('./routes/members'); 
 var mongoose = require('mongoose');
+const bcrypt = require("bcrypt");
 
 
+//user
 
+const User = require('./models/user')
+///passportJs
+
+const session = require("express-session");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
 
 
 var app = express();
+
+//More PassportJS
+app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 //Validator
@@ -45,6 +58,55 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/members', membersOnlyRouter)
+
+//login functionality
+
+passport.use(
+  new LocalStrategy((username, password, done) => {
+    console.log("im being used")
+    User.findOne({ username: username }, (err, user) => {
+      console.log(user)
+      if (err) { 
+        console.log(err)
+        return done(err);
+      };
+      if (!user) {
+        console.log("user not found")
+        return done(null, false, { msg: "Incorrect username" });
+        
+      }
+      bcrypt.compare(password, user.password, (err, res) => {
+        if (res) {
+          // passwords match! log user in
+          console.log('hello')
+          return done(null, user);
+        } else {
+          console.log('nice try')
+          return done(null, false, { msg: "Incorrect password" });
+        }
+      });
+    });
+  })
+);
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
+app.post(
+  "/members/signin",
+  passport.authenticate("local", {
+    successRedirect: "/members/signin",
+    failureRedirect: "/members/signup"
+  })
+  
+);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
