@@ -8,21 +8,88 @@ exports.message_form_display = function (req, res) {
   res.render("message_create", { title: "Members-Creation", user: req.user });
 };
 
+exports.message_create_post = [
+  (req, res, next) => {
+    const message = new Messages({
+      title: req.body.title,
+      message: req.body.message,
+      author: res.locals.currentUser,
+    });
+    User.findByIdAndUpdate(req.params.id, { $push: { messages: message } })
+    message.save((err) => {
+      if (err) return next(err);
+
+      res.send(message);
+      
+    });
+    
+    
+  },
+  
+];
+/*
+exports.message_create_post = [
+    body('title', 'Title must not be empty')
+      .trim()
+      .isLength({ min: 1 }),
+    body('message', 'Message must not be empty')
+      .trim()
+      .isLength({ min: 1 }),
+  
+    sanitizeBody('title').escape(),
+    sanitizeBody('message').escape(),
+  
+    (req, res, next) => {
+      const errors = validationResult(req)
+  
+      const message = new Messages({
+        title: req.body.title,
+        text: req.body.message,
+        author: res.locals.currentUser
+      })
+  
+      if (!errors.isEmpty()) {
+        res.render('message_form', {
+          title: 'Create New Message',
+          info: message,
+          errors: errors.array()
+        })
+        return
+      } else {
+        message.save(err => {
+          if (err) return next(err)
+  
+          res.redirect('/messages')
+        })
+      }
+    }
+  ]
+
+  */
+/*
 exports.message_form_create = function (req, res, next) {
   const messagepush = new Messages({
-    title: req.body.title,
-    message: req.body.message,
+    title: 'hello',
+    message: "there",
+    author: res.locals.currentUser
   });
+
+  
   console.log(messagepush);
-  User.findByIdAndUpdate(req.params.id, { $push: { messages: messagepush } }, function (
+  User.findByIdAndUpdate.populate('messages')(req.params.id, { $push: { messages: messagepush } }, function (
     err
   ) {
     if (err) {
       return next(err);
     }
+    else {
+        res.send(messagepush);
+    }
   });
-  res.send(messagepush);
+
 };
+
+*/
 
 ///, { $push: { messages: messagepush } }
 /*

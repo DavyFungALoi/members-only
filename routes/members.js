@@ -26,7 +26,7 @@ router.post('/user/:id', user_Controller.membership_detail_page_membership_statu
 
 router.get('/message/user/:id', message_Controller.message_form_display)
 
-router.post('/message/user/:id', message_Controller.message_form_create)
+router.post('/message/user/:id', message_Controller.message_create_post)
 
 //messageOverview
 router.get('/message/overview/', user_Controller.message_overview_display)

@@ -41,6 +41,7 @@ app.use(passport.session());
 //Set up default mongoose connection
 var mongoDB = process.env.DB_CONNECT
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.set('useFindAndModify', false);
 
 //Get the default connection
 var db = mongoose.connection;

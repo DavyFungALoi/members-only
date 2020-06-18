@@ -6,7 +6,7 @@ const UserSchema = new Schema({
   last_name:  { type: String, required: true},
   username:  { type: String},
   password: {type: String},
-  messages: [{ type: Schema.Types.ObjectId, ref: "Messages" }],
+  messages: [{ type: Schema.Types.ObjectId, ref: 'Messages' }],
   membership_status:{type: Boolean, default:false}
 
 });
@@ -19,4 +19,4 @@ UserSchema
 });
 
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model('User', UserSchema);
