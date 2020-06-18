@@ -26,6 +26,11 @@ const LocalStrategy = require("passport-local").Strategy;
 var app = express();
 
 //More PassportJS
+
+app.use(function(req, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+});
 app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -54,6 +59,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+app.use(function(req, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+});
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -107,6 +120,12 @@ app.post(
   })
   
 );
+
+app.get("/members/log-out", (req, res) => {
+  req.logout();
+  res.redirect("/members");
+});
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

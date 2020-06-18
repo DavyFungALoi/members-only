@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body> <% if (user) {%>
+    <h1>WELCOME BACK <%= user.username %></h1>
+    <h3> Create a Message here</h3>
+    <form action="" method="POST">
+        <label for="title">Title</label>
+        <input name="title" placeholder="" type="text" />
+        <label for="message">Message</label>
+        <textarea name="message" placeholder="" type="text"></textarea>
+        <button type="submit" value="create">Create Message</button>
+      </form>
+    <% } else { %>
+        <h1>Please Login</h1>
+        <a href="/members/signin">click to login here</a>
+        <%}%>
+</body>
+</html>

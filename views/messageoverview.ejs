@@ -12,11 +12,14 @@
           <h3><%= user.first_name %></h3>
           <li>First Name:  <%= user.first_name %></li>
           <li>Last Name:  <%= user.last_name%></li>
+          <li>username:  <%= user.username%></li>
 
-          <a href="/members<%=user.url%>">Click here to go view the personal information of the member</a>  
+          <a href="/members<%=user.url%>">Click here to go view the personal information of the member</a>
+          <li>messages:  <%= user.messages[0]%></li>  
 
 
         
 <%})%>
   </body>
 </html>
+

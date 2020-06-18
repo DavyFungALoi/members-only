@@ -7,7 +7,10 @@
 <body>
   <% if (user) {%>
     <h1>WELCOME BACK <%= user.username %></h1>
-    <a href="/log-out">LOG OUT</a>
+    <a href="/members/log-out">LOG OUT</a>
+    <a href="/members/<%=user.url%>">user info</a>
+    <a href="/members/message<%=user.url%>">Click here to create a message</a>  
+  
   <% } else { %>
     <h1>please log in</h1>
     <form action="/members/signin" method="POST">

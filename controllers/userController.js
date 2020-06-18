@@ -69,6 +69,7 @@ exports.signup_form_create = [
         last_name: req.body.last_name,
         username: req.body.username,
         password: hash,
+        messages:[]
       });
 
       if (!errors.isEmpty()) {
@@ -145,5 +146,18 @@ exports.membership_detail_page_membership_status_request = function (
 
 exports.sign_in_display = function (req, res) {
   res.render("sign-in", { title: "Members-Only", user: req.user  });
+};
+
+exports.message_overview_display = function (req, res, next) {
+  User.find({}, "first_name last_name username messages").populate('messages').exec(function (err, list_users) {
+    if (err) {
+      return next(err);
+    }
+    res.render("messageoverview", {
+      title: "Members-Only",
+      users_list: list_users,
+    });
+    console.log(list_users)
+  });
 };
 
