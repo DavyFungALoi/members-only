@@ -31,5 +31,8 @@ router.post('/message/user/:id', message_Controller.message_create_post)
 //messageOverview
 router.get('/message/overview/', user_Controller.message_overview_display)
 
+router.get('/message/overview2/', message_Controller.index_messages)
+
+
 
 module.exports = router;
