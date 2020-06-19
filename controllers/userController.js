@@ -120,7 +120,7 @@ exports.membership_detail_page = function (req, res, next) {
 //Grant a member membership status if they fill in the correct passport
 
 exports.membership_form = function (req, res) {
-  res.render("membership", { title: "Members-Only" });
+  res.render("membership", { title: "Members-Only", errors: "" });
 };
 
 exports.membership_detail_page_membership_status_request = function (
