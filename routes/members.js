@@ -15,8 +15,6 @@ router.post('/signup', user_Controller.signup_form_create);
 
 router.get('/signin', user_Controller.sign_in_display)
 
-router.get('/membership', user_Controller.membership_form)
-
 
 router.get('/user/:id', user_Controller.membership_detail_page)
 
@@ -31,7 +29,7 @@ router.post('/message/user/:id', message_Controller.message_create_post)
 //messageOverview
 router.get('/message/overview/', user_Controller.message_overview_display)
 
-router.get('/message/overview2/', message_Controller.index_messages)
+router.get('/message/messagelist/', message_Controller.index_messages)
 
 
 

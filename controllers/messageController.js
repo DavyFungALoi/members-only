@@ -54,9 +54,10 @@ exports.index_messages = function (req, res, next) {
       return next(err);
     }
     console.log(list_messages)
-    res.render("index", {
+    res.render("message_list", {
       title: "Members-Only",
       messages_list: list_messages,
+      user: req.user,
     });
   });
 };

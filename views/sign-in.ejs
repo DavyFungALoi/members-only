@@ -3,8 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title></title>
+  <% include partials/head %>
 </head>
-<body>
+<body class="container">
+  <header>
+    <% include partials/header %>
+</header>
   <% if (user) {%>
     <h1>WELCOME BACK <%= user.username %></h1>
     <a href="/members/log-out">LOG OUT</a>

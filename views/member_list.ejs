@@ -3,10 +3,16 @@
   <head>
     <title>Users List</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <% include partials/head %>
   </head>
-  <body>
+  <body class="container">
+    <header>
+      <% include partials/header %>
+  </header>
+    
     <h1>Members Only</h1>
     <h2>Welcome to Member list Overview</h2>
+    
     <% users_list.forEach(function(user){  %>
         
           <h3><%= user.first_name %></h3>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Users List</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <% include partials/head %>
+</head>
+<body class="container">
+  <header>
+    <% include partials/header %>
+</header>
+    <h1>Members Only</h1>
+    <% if (user) {%>
+    <div>Hello</div>
+    <% } else { %>
+    <h1>Please Login</h1>
+    <a href="/members/signin">click to login here</a>
+    <%}%>
+    <h2>Welcome to Message list Overview</h2>
+
+    <% messages_list.forEach(function(message){ %>
+
+    <h3><%= message.title %></h3>
+    <li>Message: <%= message.message %></li>
+    <%if ( user && user.membership_status === true) {%>
+    <li>Author: <%= message.author.first_name%></li>
+    <%}%> <%})%>
+  </body>
+</html>
