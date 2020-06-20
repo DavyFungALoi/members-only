@@ -20,6 +20,13 @@ router.get('/user/:id', user_Controller.membership_detail_page)
 
 router.post('/user/:id', user_Controller.membership_detail_page_membership_status_request)
 
+router.get('/user/:id/adminrequest', user_Controller.membership_admin_request_page)
+
+router.post('/user/:id/adminrequest', user_Controller.membership_admin_request_page_status)
+
+
+
+
 //Messages
 
 router.get('/message/user/:id', message_Controller.message_form_display)

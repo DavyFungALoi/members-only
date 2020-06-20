@@ -161,3 +161,47 @@ exports.message_overview_display = function (req, res, next) {
   });
 };
 
+
+exports.membership_admin_request_page = function (req, res, next) {
+  async.parallel(
+    {
+      user_found: function (callback) {
+        User.findById(req.params.id).exec(callback);
+      },
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      if ((results.user = null)) {
+        console.log("user not found");
+        return next(err);
+      }
+      res.render("admin_request", {
+        title: "Personal Profile",
+        user: results.user_found,
+      });
+    }
+  );
+};
+
+exports.membership_admin_request_page_status  = function (
+  req,
+  res,
+  next
+) {
+  if (req.body.secret_password.toLowerCase() === "benjisbadbitches") {
+    User.findByIdAndUpdate(
+      req.params.id,
+      { admin_status: true },
+      function (err) {
+        if (err) {
+          return next(err);
+        }
+      }
+    );
+    res.redirect("/members/memberlist");
+  } else {
+    res.send("invalid password");
+  }
+};
