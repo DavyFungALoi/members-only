@@ -59,9 +59,49 @@ exports.signup_form_create = [
   (req, res, next) => {
     //capturing errors
     const errors = validator.validationResult(req);
+    User.findOne({ username: req.body.username }).exec(function (
+      err,
+      found_user
+    ) {
+      if (err) {
+        return next(err);
+      }
+      if (found_user) {
+        res.send("User Found already, please try again)");
+      } else {
+        bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
+          const user = new User({
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            username: req.body.username,
+            password: hash,
+          });
 
-    //create user with escaped & trimmed data
+          if (!errors.isEmpty()) {
+            console.log(errors);
+            res.render("sign-up", {
+              title: "Members Genre",
+              errors: errors.array(),
+            });
+            return;
+          } else {
+            console.log(user);
+            user.save(function (err) {
+              if (err) {
+                return next(err);
+              }
+              res.redirect("/members/memberlist");
+              return;
+            });
+          }
+        });
+      }
+    });
+  },
+];
 
+//create user with escaped & trimmed data
+/*
     //bcrypt it
     bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
       const user = new User({
@@ -92,6 +132,7 @@ exports.signup_form_create = [
     });
   },
 ];
+*/
 
 //create a membership password display thing where if you do it correctly it will update your status
 exports.membership_detail_page = function (req, res, next) {
