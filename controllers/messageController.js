@@ -7,7 +7,11 @@ const validator = require("express-validator");
 const { body } = require("express-validator");
 
 exports.message_form_display = function (req, res) {
-  res.render("message_create", { title: "Members-Creation", user: req.user, errors: "" });
+  res.render("message_create", {
+    title: "Members-Creation",
+    user: req.user,
+    errors: "",
+  });
 };
 
 exports.message_create_post = [
@@ -47,17 +51,54 @@ exports.message_create_post = [
   },
 ];
 
-
 exports.index_messages = function (req, res, next) {
-  Messages.find({}, "title message time").populate("author").exec(function (err, list_messages) {
-    if (err) {
-      return next(err);
-    }
-    console.log(list_messages)
-    res.render("message_list", {
-      title: "Members-Only",
-      messages_list: list_messages,
-      user: req.user,
+  Messages.find({}, "title message time")
+    .populate("author")
+    .exec(function (err, list_messages) {
+      if (err) {
+        return next(err);
+      }
+      res.render("message_list", {
+        title: "Members-Only",
+        messages_list: list_messages,
+        user: req.user,
+      });
     });
-  });
+};
+
+exports.messages_detail_page = function (req, res, next) {
+  async.parallel(
+    {
+      message_found: function (callback) {
+        Messages.findById(req.params.id).populate("author").exec(callback);
+      },
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      if ((results.message = null)) {
+        console.log("message not found");
+        return next(err);
+      }
+      res.render("message_detail", {
+        title: "Message Profile",
+        message: results.message_found,
+        user: req.user,
+      });
+    }
+  );
+};
+
+exports.delete_message = function (req, res, next) {
+  console.log("delete this")
+  console.log(req.params.id)
+  Messages.findByIdAndRemove(req.params.id,
+    function errortest(err) {
+      if (err) {
+        return next(err);
+      } else {
+        res.redirect("/members/message/messagelist");
+      }
+    })
 };

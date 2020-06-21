@@ -38,6 +38,9 @@ router.get('/message/overview/', user_Controller.message_overview_display)
 
 router.get('/message/messagelist/', message_Controller.index_messages)
 
+router.get('/message/:id/', message_Controller.messages_detail_page)
+
+router.post('/message/:id/', message_Controller.delete_message)
 
 
 module.exports = router;

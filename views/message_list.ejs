@@ -24,6 +24,11 @@
     <li>Message: <%= message.message %></li>
     <%if ( user && user.membership_status === true) {%>
     <li>Author: <%= message.author.first_name%></li>
+    <%if ( user && user.membership_status === true && user.admin_status ===true) {%>
+        <a href="/members<%=message.url%>">Click here delete this message</a> 
+        
+        <%}%>
+    
     <%}%> <%})%>
   </body>
 </html>

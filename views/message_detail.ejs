@@ -10,19 +10,19 @@
     <header>
       <% include partials/header %>
   </header>
-    <h1>Welcome to Personal Profile</h1>
+  <%if ( user && user.membership_status === true && user.admin_status ===true) {%>
+    <h1>Nephew, delete this</h1>
     <h2>Welcome to <%=title%></h2>
 
-    <h3><%= user.first_name %></h3>
-    <li>First Name: <%= user.first_name %></li>
-    <li>Last Name: <%= user.last_name%></li>
-    <h3>Get Membership</h3>
+    <h3><%= message.title %></h3>
+    <div><%= message.message %></div>
     <form action="" method="POST">
-        <label for="secret_password">Fill in the Secret password here</label>
-        <input name="secret_password" placeholder="" type="text" />
-        <button type="submit" value="Submit">Submit</button>
+        <button type="submit" value="Submit">Delete Message</button>
       </form>
-
-
+        <%} else{ %>  
+            <h1>Permission Denied</h1>
+         <% } %>
+      
   </body>
 </html>
+
