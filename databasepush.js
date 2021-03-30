@@ -22,12 +22,13 @@ console.log(
   let messagesexample= ["hello there", "general kenobi"]
 
 
-  function userCreate(first_name, last_name, username, passport, messages, membershipstatus) {
+
+  function userCreate(first_name, last_name, username, password, messages, membershipstatus) {
       userdetail= {
           first_name: first_name,
           last_name: last_name,
           username: username,
-          passport,
+          password,
           messages,
           membershipstatus,
           cb
@@ -42,6 +43,17 @@ console.log(
       } )
   }
 
+function messsageCreate (title, message, time) {
+  usermessage = {
+    
+  }
+}
+const MessageSchema = new Schema({
+  title: { type: String, required: true, max: 100 },
+  message: { type: String, required: true, max: 300 },
+  time: { type: Date, default: Date.now },
+});
+
 
   
   
@@ -54,7 +66,7 @@ console.log(
             "Sate",
             "kip@gmail.com",
             "krappa",
-            messagesexample[1], messagesexample[2],
+            messagesexample[1],
             "2",
             callback
           );

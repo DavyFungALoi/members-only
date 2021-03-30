@@ -2,22 +2,30 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
     <% include partials/head %>
   </head>
 
-  
   <body class="container">
-    <header>
-      <% include partials/header %>
-  </header>
+    <header><% include partials/header %></header>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
     <h2>hello there</h2>
+    <div>The idea of this project is to learn how authentication works</div>
     <a href="/members">Visit members</a>
     <a href="/members/memberlist">Visit memberslist</a>
-
-    
-    
+    <h2>How this works</h2>
+    <div>
+      You can sign up as a user, but you are not granted membership status, only
+      by enterting a secret password will you be able to do this.
+    </div>
+    <div>
+      users  have the ability to write messages Everyone can see messages that are
+      created, but only people who are members can see the author
+    </div>
+    <div>
+      members is another level, these are admin and can be accessed by entering
+      another secret password, they can then delete messages.
+    </div>
   </body>
 </html>

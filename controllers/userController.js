@@ -100,41 +100,6 @@ exports.signup_form_create = [
   },
 ];
 
-//create user with escaped & trimmed data
-/*
-    //bcrypt it
-    bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
-      const user = new User({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        username: req.body.username,
-        password: hash,
-        messages: [],
-      });
-
-      if (!errors.isEmpty()) {
-        console.log(errors);
-        res.render("sign-up", {
-          title: "Members Genre",
-          errors: errors.array(),
-        });
-        return;
-      } else {
-        console.log(user);
-        user.save(function (err) {
-          if (err) {
-            return next(err);
-          }
-          res.redirect("/members/memberlist");
-          return;
-        });
-      }
-    });
-  },
-];
-*/
-
-//create a membership password display thing where if you do it correctly it will update your status
 exports.membership_detail_page = function (req, res, next) {
   async.parallel(
     {
